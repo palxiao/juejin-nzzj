@@ -1,0 +1,11 @@
+@keyframes blink {
+  50% {
+    color: transparent;
+  }
+}
+
+@keyframes blink-bg {
+  50% {
+    background-color: transparent;
+  }
+}
