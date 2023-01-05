@@ -161,6 +161,7 @@
             targets: '.info span',
             opacity: 1,
             translateX: 0,
+            marginLeft: right / 4,
             delay: anime.stagger(500), // delay starts at 500ms then increase by 100ms for each elements.
           })
           .add({
@@ -182,7 +183,8 @@
     flex-direction: column;
     color: #fff;
     font-size: 3.4vw;
-    margin-right: 40vw;
+    left: 0;
+    /* margin-right: 40vw; */
   }
   .info span {
     margin-bottom: 1rem;

@@ -21,10 +21,14 @@
   let myDanmu: any = {}
   let jsConfetti: any = {}
   let timer: any = null
+  const loginRef: any = ref(null)
+
+  const prefix = process.env
+  const isDev = prefix.NODE_ENV === 'development'
   onMounted(async () => {
     // scrollListener()
     myDanmu = danmu()
-    music = await musicPlayer()
+    !isDev && (music = await musicPlayer())
     jsConfetti = new JSConfetti()
   })
   // 🎉祝贺
@@ -77,6 +81,7 @@
       loadDone()
     }, 350)
   }
+
   const loadDone = () => {
     music.play ? music.play() : replay()
     show.value = true
@@ -96,13 +101,19 @@
   const specialChange = (p: any) => {
     parseInt(p) > 50 && parseInt(p) < 55 && congratulate()
   }
+
+  const replayDanmu = async () => {
+    await baseStore.pullDiscuss()
+    myDanmu.start(baseStore.danmu)
+    // myDanmu.resize()
+  }
 </script>
 
 <template>
   <div class="home">
-    <Login @done="loadDone" />
+    <Login ref="loginRef" @done="loadDone" />
     <DanmuUI />
-    <div>
+    <div style="padding: 1rem">
       <button style="color: #333" @click="autoPlay">自动播放</button> <span class="bgm">BGM: 《Merry Christmas Mr. Lawrence - FY》 作者@<a href="https://juejin.cn/user/2682464103060541/posts">茶无味的一天</a></span>
     </div>
     <div @click="autoPlay" class="title">点击 / 滚动开始</div>
@@ -129,7 +140,7 @@
         <Tags :progress="props.progress" :tags="tags"></Tags>
       </ScrollWrap>
 
-      <ScrollWrap v-slot="props" :long="wh * 4">
+      <ScrollWrap v-slot="props" :long="wh * 4" style="padding: 0.5rem 1.8rem">
         <Write :size="'7vh'" :value="'这是你这年最受欢迎的文章：'" :noLine="true" :progress="props.progress" />
         <Write :size="'7.5vh'" @change="specialChange" :value="`《${firstBook.title}》`" :delay="1000" style="text-align: center; padding: 1vh 0" :noLine="true" :progress="props.progress" />
         <Write :size="'5vh'" :value="`文章被阅读了${firstBook.view_count}次，获得${firstBook.digg_count}个点赞(๑˃̵ᴗ˂̵)👍`" :delay="3700" style="text-align: center" :noLine="true" :progress="props.progress" />
@@ -138,7 +149,7 @@
         <!-- <WebPage :progress="props.progress" /> -->
       </ScrollWrap>
 
-      <ScrollWrap v-if="secondBook" v-slot="props" :long="wh * 4">
+      <ScrollWrap v-if="secondBook" v-slot="props" :long="wh * 4" style="padding: 0.5rem 1.8rem">
         <Write :size="'7vh'" :value="'你的这篇文章也写得很不错：'" :noLine="true" :progress="props.progress" />
         <Write :size="'7.5vh'" @change="specialChange" :value="`《${secondBook.title}》`" :delay="1000" style="text-align: center; padding: 1vh 0" :noLine="true" :progress="props.progress" />
         <Write :size="'5vh'" :value="`文章被阅读了${secondBook.view_count}次，获得${secondBook.digg_count}个点赞(๑˃̵ᴗ˂̵)👍`" :delay="3700" style="text-align: center" :noLine="true" :progress="props.progress" />
@@ -146,7 +157,7 @@
         <Write :size="'6vh'" :value="'分享技术，传播价值！'" :delay="6500" style="text-align: center" :progress="props.progress" />
       </ScrollWrap>
 
-      <ScrollWrap v-if="lastBook" v-slot="props" :long="wh * 4">
+      <ScrollWrap v-if="lastBook" v-slot="props" :long="wh * 4" style="padding: 0.5rem 1.8rem">
         <Write :size="'7vh'" :value="'这年你太高产了，我还找到了这篇：'" :noLine="true" :progress="props.progress" />
         <Write :size="'7.5vh'" @change="specialChange" :value="`《${lastBook.title}》`" :delay="1000" style="text-align: center; padding: 1vh 0" :noLine="true" :progress="props.progress" />
         <Write :size="'5vh'" :value="`文章被阅读了${lastBook.view_count}次，获得${lastBook.digg_count}个点赞(๑˃̵ᴗ˂̵)👍`" :delay="3700" style="text-align: center" :noLine="true" :progress="props.progress" />
@@ -155,7 +166,7 @@
       </ScrollWrap>
 
       <ScrollWrap v-slot="props" :long="1.4 * wh">
-        <Text :value="`( ⸍ꔷᗄꔷ⸌)o 送走2022，新的一年来了`" :progress="props.progress" />
+        <Text :value="`( ⸍ꔷᗄꔷ⸌)o 送走2022，新的一年来了`" :destroy="true" :progress="props.progress" />
       </ScrollWrap>
 
       <ScrollWrap v-slot="props" :long="1.5 * wh" @done="isAllDone">
@@ -163,6 +174,7 @@
       </ScrollWrap>
 
       <div @click="toTop" class="title">返回顶部</div>
+      <div><button style="color: #333; float: right" @click="replayDanmu">更新弹幕</button></div>
     </template>
   </div>
 </template>
@@ -175,7 +187,6 @@
     cursor: pointer;
     width: 100%;
     text-align: center;
-    /* padding: 2rem 0; */
     color: rgba(255, 255, 255, 0.8);
     font-size: 6vh;
     letter-spacing: 0.2rem;

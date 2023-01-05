@@ -24,17 +24,18 @@ Object.assign =
   }
 
 export default function init(danmaku, container) {
-  let width = container.offsetWidth
-  let height = container.offsetHeight
-  window.addEventListener(
-    'resize',
-    function () {
-      if (container.offsetWidth !== width || container.offsetHeight !== height) {
-        danmaku.resize()
-        width = container.offsetWidth
-        height = container.offsetHeight
-      }
-    },
-    false
-  )
+  // 掘金纯净模式抖动，暂不开启
+  // let width = container.offsetWidth
+  // let height = container.offsetHeight
+  // window.addEventListener(
+  //   'resize',
+  //   function () {
+  //     if (container.offsetWidth !== width || container.offsetHeight !== height) {
+  //       danmaku.resize()
+  //       width = container.offsetWidth
+  //       height = container.offsetHeight
+  //     }
+  //   },
+  //   false
+  // )
 }

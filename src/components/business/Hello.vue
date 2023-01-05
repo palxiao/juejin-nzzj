@@ -3,7 +3,7 @@
  * @Date: 2022-12-18 23:35:49
  * @Description:  
  * @LastEditors: ShawnPhang <site: book.palxp.com>
- * @LastEditTime: 2023-01-04 02:04:17
+ * @LastEditTime: 2023-01-05 20:50:52
  * @site: book.palxp.com
 -->
 <template>
@@ -11,7 +11,7 @@
     <div ref="letterEl" class="my_letter">
       <div ref="halfEl" style="transform: rotate(180deg)" class="envelope"></div>
       <div class="envelope"></div>
-      <div ref="paperEl" class="paper"><span>2022年度报告</span><span>广告位招租~</span>( ͡°ᴥ ͡° ʋ)</div>
+      <div ref="paperEl" class="paper"><span>2022年度报告</span><span>广告位招租~</span><span>( ͡°ᴥ ͡° ʋ)</span></div>
     </div>
   </div>
 </template>
@@ -129,7 +129,7 @@
   }
   .paper span {
     display: block;
-    font-size: 0.1vh;
-    margin-bottom: 1vh;
+    font-size: 2vh;
+    margin-bottom: 2vh;
   }
 </style>
