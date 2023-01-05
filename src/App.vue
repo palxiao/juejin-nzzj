@@ -83,6 +83,9 @@
   }
 
   const loadDone = () => {
+    setTimeout(() => {
+      autoPlay()
+    }, 100)
     music.play ? music.play() : replay()
     show.value = true
   }
@@ -116,7 +119,7 @@
     <div style="padding: 1rem">
       <button style="color: #333" @click="autoPlay">自动播放</button> <span class="bgm">BGM: 《Merry Christmas Mr. Lawrence - FY》 作者@<a href="https://juejin.cn/user/2682464103060541/posts">茶无味的一天</a></span>
     </div>
-    <div @click="autoPlay" class="title">点击 / 滚动开始</div>
+    <div @click="autoPlay" class="title">滚动开始</div>
 
     <template v-if="show">
       <ScrollWrap v-slot="props" :long="wh">
