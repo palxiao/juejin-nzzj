@@ -3,7 +3,7 @@
  * @Date: 2022-12-19 02:01:54
  * @Description:  
  * @LastEditors: ShawnPhang <site: book.palxp.com>
- * @LastEditTime: 2023-01-01 05:19:55
+ * @LastEditTime: 2023-08-28 14:25:20
  * @site: book.palxp.com
 -->
 <template>
@@ -94,7 +94,7 @@
     height: 100%;
   }
   .ml11 {
-    font-weight: 700;
+    font-weight: 300;
     font-size: 5vw;
     color: #ffffff;
   }

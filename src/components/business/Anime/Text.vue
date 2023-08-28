@@ -3,7 +3,7 @@
  * @Date: 2022-12-19 02:01:54
  * @Description: 文字特效
  * @LastEditors: ShawnPhang <site: book.palxp.com>
- * @LastEditTime: 2023-01-01 22:39:20
+ * @LastEditTime: 2023-08-28 14:32:02
  * @site: book.palxp.com
 -->
 <template>

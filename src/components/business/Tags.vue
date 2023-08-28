@@ -3,13 +3,13 @@
  * @Date: 2022-12-19 02:01:54
  * @Description: 标签动感显示
  * @LastEditors: ShawnPhang <site: book.palxp.com>
- * @LastEditTime: 2023-01-01 16:31:23
+ * @LastEditTime: 2023-08-28 14:20:14
  * @site: book.palxp.com
 -->
 <template>
   <div class="wrap">
     <div class="flex-layout" style="height: 40vh; text-align: center">
-      <Text :progress="progress * 2" value="这些都是你擅长的创作领域" />
+      <Text class="ZK" :progress="progress * 2" value="这些都是你擅长的创作领域" />
     </div>
     <div class="group">
       <span v-for="t in tags" :key="t" class="letters">{{ t }}</span>

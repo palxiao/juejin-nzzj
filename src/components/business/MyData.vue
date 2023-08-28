@@ -137,7 +137,7 @@
         await nextTick()
 
         seekAnim = anime.timeline({
-          easing: 'linear',
+          easing: 'easeOutExpo',
           targets: wrapEl.value,
           autoplay: false,
         })
@@ -176,6 +176,9 @@
 </script>
 
 <style scoped>
+small {
+  font-family: "ZCOOL KuaiLe", sans-serif;
+}
   .info {
     position: absolute;
     /* opacity: 0; */

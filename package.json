@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "build": "vite build",
-    "v-build": "vue-tsc && vite build",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "v-build": "vue-tsc && vite build"
   },
   "dependencies": {
     "@palxp/scroll-wrap-vue3": "^1.0.6",
