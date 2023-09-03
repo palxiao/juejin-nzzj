@@ -16,6 +16,7 @@ import musicPlayer from "./utils/musicPlayer";
 import DanmuUI from "./components/business/Danmu/Danmu.vue";
 import danmu from "./components/business/Danmu";
 import JSConfetti from "js-confetti";
+import Silky from "@/utils/silky";
 
 let music: any = {};
 let myDanmu: any = {};
@@ -24,13 +25,22 @@ let timer: any = null;
 const loginRef: any = ref(null);
 
 const prefix = process.env;
-const isDev = prefix.NODE_ENV === "development";
+// const isDev = prefix.NODE_ENV === "development";
+const lm = 3.5 // long multiple
+let wh = (document.documentElement.clientHeight || document.body.clientHeight) * lm;
 onMounted(async () => {
   // scrollListener()
   myDanmu = danmu();
   // !isDev && (music = await musicPlayer());
   music = await musicPlayer()
   jsConfetti = new JSConfetti();
+  // 惯性滚动
+  const silky = new Silky({})
+  function raf(time: number) {
+    silky.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
 });
 // 🎉祝贺
 const congratulate = () => {
@@ -99,7 +109,6 @@ const isAllDone = () => {
   // myDanmu.clearScreen()
   myDanmu.start(baseStore.danmu);
 };
-let wh = document.documentElement.clientHeight || document.body.clientHeight;
 
 const specialChange = (p: any) => {
   parseInt(p) > 50 && parseInt(p) < 55 && congratulate();
@@ -117,7 +126,7 @@ const replayDanmu = async () => {
     <Login ref="loginRef" @done="loadDone" />
     <DanmuUI />
     <div style="padding: 1rem">
-      <button style="color: #333" @click="autoPlay">自动播放</button>
+      <button style="color: #333" @click="autoPlay"></button>
       <span class="bgm"
         >BGM: 《Merry Christmas Mr. Lawrence - FY》 网页作者@<a
           href="https://juejin.cn/post/7184712051171229755"
@@ -321,7 +330,7 @@ const replayDanmu = async () => {
         />
       </ScrollWrap>
 
-      <div @click="toTop" class="title ZK">返回顶部</div>
+      <!-- <div @click="toTop" class="title ZK">返回顶部</div> -->
       <div>
         <button style="color: #333; float: right" @click="replayDanmu">
           更新弹幕
